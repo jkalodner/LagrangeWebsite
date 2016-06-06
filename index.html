@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Lagrange Error Bound</title>
+		<link rel="icon" href="https://cdn2.iconfinder.com/data/icons/mathematics-geometry/154/math-function-mathematical-integral-512.png">
+		<meta charset="utf-8">
+  		<meta name="viewport" content="width=device-width, initial-scale=1">
+  		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+  		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    	<script type="text/javascript" async
+  			src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+		</script>
+	</head>
+	<body style="background-color:#c0c0c0">
+		<nav class="navbar navbar-default navbar-fixed-top">
+		  <div class="container-fluid">
+		    <!-- Brand and toggle get grouped for better mobile display -->
+		    <div class="navbar-header">
+		      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+		        <span class="sr-only">Toggle navigation</span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		      </button>
+		      <a class="navbar-brand" href="#"><img alt="LEB" src="https://cdn2.iconfinder.com/data/icons/mathematics-geometry/154/math-function-mathematical-integral-512.png"></a>
+		    </div>
+
+		    <!-- Collect the nav links, forms, and other content for toggling -->
+		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		      <ul class="nav navbar-nav">
+		        <li><a href="#what">What is the Lagrange Error Bound?</a></li>
+		        <li><a href="#bound">What does the Lagrange Error Bound Look Like?</a></li>
+		        <li class="dropdown">
+          			<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">How Do We Derive It?<span class="caret"></span></a>
+          			<ul class="dropdown-menu">
+            			<li><a href="#1">Step 1</a></li>
+            			<li><a href="#2">Step 2</a></li>
+            			<li><a href="#3">Step 3</a></li>
+            			<li><a href="#4">Step 4</a></li>
+            			<li><a href="#5">Step 5</a></li>
+            			<li><a href="#6">Step 6</a></li>
+          			</ul>
+       			 </li>
+		      </ul>
+		    </div><!-- /.navbar-collapse -->
+		  </div><!-- /.container-fluid -->
+		</nav>
+		<h1 class="text-center">Derivation of the Lagrange Error Bound</h1>
+		<hr style="border-color:black">
+		<div class="shift">
+			<a id="what" class="anchor"></a>
+			<h3>What is the Lagrange Error Bound?</h3>
+			<p>When approximating a Taylor series to any degree, there is always a certain amount you will be off, as you are cutting of an infinite number of terms from the series by stopping it at a certain term. The Lagrange Error Bound is a number that shows you the <strong>maximum value</strong> your estimation is off of the actual value given by the Taylor series. You can use the Lagrange Error Bound to show, at the worst case, how far off your estimate might be.</p>
+			<a id="bound" class="anchor"></a>
+			<h3>What does the Lagrange Error Bound Look Like?</h3>
+			<p>The formula for Lagrange Error Bound looks like this:<p>
+			$$\left|R_n(x)\right|\le\frac{M}{(n+1)!}(x-x_0)^{n+1}$$
+			<p>\(n\) is the degree to which you're approximating your Taylor Series, \(M\) is the most extreme value of  \(f^{(n+1)}(x)\), and \(x_0\) is the value the series is approximating. Basically, what we're doing is that we're taking the next term in the Taylor series at it's most extreme, and our remainder will always be less than that.</p>
+			<h3>How Do We Derive It?</h3>
+			<a id="1" class="anchor"></a>
+			<h4>Step 1</h4>
+			<p>Here's what we know. We know \(T_n(x)\) is the \(n\)th degree Taylor polynomial for \(f(x)\) about \(x_0\), and \(R_n(x)\) is the error between \(f(x)\) and \(T_n(x)\) on [\(x_0\), \(x\)]. Most importantly, we know that \(f(x)\) and all of it's derivatives are differentiable and continuous.</p>
+			<p>Let's start out with a Taylor series. The general form for a Taylor series to degree \(n\) looks like this:</p>
+			$$T_n(x)=f(x_0)+f'(x_0)(x-x_0)+\frac{f''(x_0)(x-x_0)^2}{2!}+...+\frac{f^{(n)}(x_0)(x-x_0)^n}{n!}$$
+			<p>The formula for \(f(x)\) looks like this:</p>
+			$$f(x)=T_n(x)+R_n(x)$$
+			<p>We can rewrite this solving for \(R_n(x)\):</p>
+			$$R_n(x)=f(x)-T_n(x)$$
+			<p>Now let's get started.</p>
+			<a id="2" class="anchor"></a>
+			<h4>Step 2</h4>
+			<p>We can take the derivative of our above function, \(R_n(x)=f(x)-T_n(x)\), as many times as we want because all of it's derivatives are differentiable. So:</p>
+			$$R_n(x)=f(x)-T_n(x) \Rightarrow R_n'(x)=f'(x)-T_n'(x) \Rightarrow R_n^{(n+1)}(x)=f^{(n+1)}(x)+T_n^{(n+1)}(x)$$
+			<p>We can eliminate \(T_n^{(n+1)}(x)\) here. Why? The (\(n+1\))th derivative of a \(n\)th degree Taylor series is \(0\). This works because in the last term of the Taylor series, \(x\) is to the \(n\)th power. Because you are taking the derivative \(n+1\) times, this value, and all the previous values, are equal to \(0\). So now:</p>
+			$$R_n^{(n+1)}(x)=f^{(n+1)}(x)$$
+			<a id="3" class="anchor"></a>
+			<h4>Step 3</h4>
+			<p>So let's say \(\left|f^{(n+1)}(x)\right|\le M\). This goes back to our most extreme idea- we're trying to find the most extreme value of \(f^{(n+1)}(x)\) so we have the most leeway for our remainder. \(M\) just represents that most extreme value. We also know \(R_n^{(n+1)}(x)=f^{(n+1)}(x)\). Thus:</p>
+			$$\left|R_n^{(n+1)}(x)\right|\le M$$
+			$$-M \le R_n^{(n+1)}(x) \le M$$
+			$$\int_{x_0}^x -M dt\le \int_{x_0}^x R_n^{(n+1)}(t) dt\le \int_{x_0}^x M dt$$
+			$$-Mt|_{x_0}^x \le R_n^{(n)}(x)-R_n^{(n)}(x_0) \le Mt|_{x_0}^x$$
+			<p>Here, we know that \(R_n^{(n)}(x_0)\) is \(0\). Why? Because at the center of the Taylor series, \(f^{(k)}(x_0)=T_n^{(k)}(x_0)\). This is because of the way the Taylor polynomial is constucted.Therefore:</p>
+			$$-M(x-x_0) \le R_n^{(n)}(x) \le M(x-x_0)$$
+			<a id="4" class="anchor"></a>
+			<h4>Step 4</h4>
+			<p>Now, we integrate again.</p>
+			$$\int_{x_0}^x-M(t-x_0)dt \le \int_{x_0}^xR_n^{(n)}(t)dt \le \int_{x_0}^xM(t-x_0)dt$$
+			$$-M\left(\frac{(t-x_0)^2}{2}\Bigg|_{x_0}^x\right) \le R_n^{(n-1)}(x)-R_n^{(n-1)}(x_0) \le M\left(\frac{(t-x_0)^2}{2}\Bigg|_{x_0}^x\right)$$
+			<p>Again, we can eliminate \(R_n^{(n-1)}(x_0)\).</p>
+			$$-M\left(\frac{(x-x_0)^2}{2}-\frac{(x_0-x_0)^2}{2}\right) \le R_n^{(n-1)}(x) \le M\left(\frac{(x-x_0)^2}{2}-\frac{(x_0-x_0)^2}{2}\right)$$
+			$$-M\left(\frac{(x-x_0)^2}{2}\right) \le R_n^{(n-1)}(x) \le M\left(\frac{(x-x_0)^2}{2}\right)$$
+			<a id="5" class="anchor"></a>
+			<h4>Step 5</h4>
+			<p>Let's integrate one more time:</p>
+			$$\int_{x_0}^x-M\frac{(t-x_0)^2}{2}dt \le \int_{x_0}^xR_n^{(n-1)}(t)dt \le \int_{x_0}^xM\frac{(t-x_0)^2}{2}dt$$
+			$$-M\left(\frac{(t-x_0)^3}{3!}\Bigg|_{x_0}^x\right) \le R_n^{(n-2)}(x)-R_n^{(n-2)}(x_0) \le M\left(\frac{(t-x_0)^3}{3!}\Bigg|_{x_0}^x\right)$$
+			<p>Using our previous simplifications, we get:</p>
+			$$-M\left(\frac{(x-x_0)^3}{3!}\right) \le R_n^{(n-2)}(x) \le M\left(\frac{(x-x_0)^3}{3!}\right)$$
+			<p>Beginning to notice a pattern? I hope so.</p>
+			<a id="6" class="anchor"></a>
+			<h4>Step 6</h4>
+			<p>Here's the pattern we have so far:</p>
+			$$-M\frac{(x-x_0)^0}{0!} \le R_n^{(n+1)}(x) \le M\frac{(x-x_0)^0}{0!}$$
+			$$-M\frac{(x-x_0)^1}{1!} \le R_n^{(n)}(x) \le M\frac{(x-x_0)^1}{1!}$$
+			$$-M\frac{(x-x_0)^2}{2!} \le R_n^{(n-1)}(x) \le M\frac{(x-x_0)^2}{2!}$$
+			$$-M\frac{(x-x_0)^3}{3!} \le R_n^{(n-2)}(x) \le M\frac{(x-x_0)^3}{3!}$$
+			<p>Notice that the exponent of the \((x-x_0)\) term and the number derivative of \(R_n(x)\) always add up to \(n+1\). If we continue this pattern, we get:</p>
+			$$-M\frac{(x-x_0)^{n+1}}{(n+1)!} \le R_n(x) \le M\frac{(x-x_0)^{n+1}}{(n+1)!}$$
+			<p>This can be rewritten as:</p>
+			$$\left|R_n(x)\right|\le\frac{M}{(n+1)!}(x-x_0)^{n+1}$$
+			<p>Ta-da! The equation for the Lagrange Error Bound! Remember: \(M=f^{n+1}(c)\) where \(c\in(x_0,x)\).</p>
+		</div>
+		<footer class="text-center">Created by Jacob Kalodner, 2016.</footer>
+	</body>
+	<script type="text/javascript">
+	</script>
+	<style type="text/css">
+	a.anchor{display: block; position: relative; top: -60px; visibility: hidden;}
+	body { padding-top: 50px; }
+	.navbar-brand{
+		padding-top:10px;
+	}
+	img{
+		height:30px;
+	}
+	.shift{
+		margin-left:20px;
+		margin-right: 20px;
+	}
+	</style>
+</html>
