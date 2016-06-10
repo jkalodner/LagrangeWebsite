@@ -35,12 +35,8 @@
 		        <li class="dropdown">
           			<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">How Do We Derive It?<span class="caret"></span></a>
           			<ul class="dropdown-menu">
-            			<li><a href="#1">Step 1</a></li>
-            			<li><a href="#2">Step 2</a></li>
-            			<li><a href="#3">Step 3</a></li>
-            			<li><a href="#4">Step 4</a></li>
-            			<li><a href="#5">Step 5</a></li>
-            			<li><a href="#6">Step 6</a></li>
+            			<li><a href="#1">Method 1</a></li>
+            			<li><a href="#2">Method 2</a></li>
           			</ul>
        			 </li>
 		      </ul>
@@ -58,25 +54,51 @@
 			<p>The formula for Lagrange Error Bound looks like this:<p>
 			$$\left|R_n(x)\right|\le\frac{M}{(n+1)!}(x-x_0)^{n+1}$$
 			<p>\(n\) is the degree to which you're approximating your Taylor Series, \(M\) is the most extreme value of  \(f^{(n+1)}(x)\), and \(x_0\) is the value the series is approximating. Basically, what we're doing is that we're taking the next term in the Taylor series at it's most extreme, and our remainder will always be less than that.</p>
-			<h3>How Do We Derive It?</h3>
+			<h4>How Do We Derive It?</h4>
 			<a id="1" class="anchor"></a>
-			<h4>Step 1</h4>
+			<h4>Method 1</h4>
 			<p>Here's what we know. We know \(T_n(x)\) is the \(n\)th degree Taylor polynomial for \(f(x)\) about \(x_0\), and \(R_n(x)\) is the error between \(f(x)\) and \(T_n(x)\) on [\(x_0\), \(x\)]. Most importantly, we know that \(f(x)\) and all of it's derivatives are differentiable and continuous.</p>
-			<p>Let's start out with a Taylor series. The general form for a Taylor series to degree \(n\) looks like this:</p>
+			<p>Let's start out with a Taylor series. The general form for a Taylor series to degree \(n\), as proved above, looks like this:</p>
 			$$T_n(x)=f(x_0)+f'(x_0)(x-x_0)+\frac{f''(x_0)(x-x_0)^2}{2!}+...+\frac{f^{(n)}(x_0)(x-x_0)^n}{n!}$$
 			<p>The formula for \(f(x)\) looks like this:</p>
 			$$f(x)=T_n(x)+R_n(x)$$
 			<p>We can rewrite this solving for \(R_n(x)\):</p>
 			$$R_n(x)=f(x)-T_n(x)$$
-			<p>Now let's get started.</p>
+			<p>Let's take a quick look at f(x). The Fundamental Theorum of Calculus dicatates that:</p>
+			$$f(x)=f(x_0)+\int_{x_0}^x f'(t)dt$$
+			<p>However, can't we write \(f'(t)\) the same way we wrote \(f(x)\) using the Fundamental Theorum? Sure we can! Therefore, we can rewrite this like so:</p>
+			$$f(x)=f(x_0)+\int_{x_0}^x (f'(x_0)+\int_{x_0}^t f''(t_1)dt_1) dt$$
+			<p>We can continue doing this for as long as we like:</p>
+			$$f(x)=f(x_0)+\int_{x_0}^x (f'(x_0)+\int_{x_0}^t (f''(x_0)+\int_{x_0}^{t_1} f'''(t_2)dt_2) dt_1) dt$$
+			$$f(x)=f(x_0)+\int_{x_0}^x (f'(x_0)+\int_{x_0}^t (f''(x_0)+\int_{x_0}^{t_1} (f'''(x_0)+\int_{x_0}^{t_2} f''''(t_3)dt_3) dt_2) dt_1) dt$$
+			<p>Now, let's try integrating all this stuff.</p>
+			$$f(x)=f(x_0)+\int_{x_0}^x (f'(x_0)+\int_{x_0}^t (f''(x_0)+\int_{x_0}^{t_1} (f'''(x_0)+\int_{x_0}^{t_2} f''''(t_3)dt_3) dt_2) dt_1) dt$$
+			$$f(x)=f(x_0)+f'(x_0)(x-x_0)+\int_{x_0}^x (\int_{x_0}^t (f''(x_0)+\int_{x_0}^{t_1} (f'''(x_0)+\int_{x_0}^{t_2} f''''(t_3)dt_3) dt_2) dt_1) dt$$
+			$$f(x)=f(x_0)+f'(x_0)(x-x_0)+\frac{f''(x_0)(x-x_0)^2}{2}+\int_{x_0}^x (\int_{x_0}^t (\int_{x_0}^{t_1} (f'''(x_0)+\int_{x_0}^{t_2} f''''(t_3)dt_3) dt_2) dt_1) dt$$
+			$$f(x)=f(x_0)+f'(x_0)(x-x_0)+\frac{f''(x_0)(x-x_0)^2}{2}+\frac{f'''(x_0)(x-x_0)^3}{6}+\int_{x_0}^x (\int_{x_0}^t (\int_{x_0}^{t_1} (\int_{x_0}^{t_2} f''''(t_3)dt_3) dt_2) dt_1) dt$$
+			<p>We've integrated all of the definite numbers-but wait. We still have something left in the integrals! This is the remainder. We can use the Mean Value Theorum to rewrite this:</p>
+			$$\frac{1}{t_2-x_0}\int_{x_0}^{t_2}f''''(t_3)dt_3=f''''_{avg}$$
+			<p class="text-center">so:</p>
+			$$f''''(avg)(t_2-x_0)=\int_{x_0}^{t_2}f''''(t_3)dt_3$$
+			<p>Great, right? Except... we don't know that the \(x\) value is that will produce the average height. We have absolutely no idea! Therefore, what we do is we use the <strong>worst value</strong> for \(x\) (or \(t_3\) in this case). We know that this way, there's no way that the error can be larger than our guess:</p>
+			$$f''''(avg)(t_2-x_0)\le \left|f''''(worst)\right|(t_2-x_0)$$
+			<p>So, if we keep integrating this in out \(f(x)\) function above, and \(c\) is equal to the worst \(x\) value, then we get:</p>
+			$$f(x)=f(x_0)+f'(x_0)(x-x_0)+\frac{f''(x_0)(x-x_0)^2}{2}+\frac{f'''(x_0)(x-x_0)^3}{6}+\frac{f''''(c)(x-x_0)^4}{24}$$
+			<p>\(\frac{f''''(c)(x-x_0)^4}{4}\) should be our Lagrange Error, right? Just to be safe, let's double check using our formula \(R_n(x)=f(x)-T_n(x)\). Seeing as we have 4 non-remainder terms, our \(n\) will equal 4.</p>
+			$$R_4(x)=f(x)-T_4(x)$$
+			$$R_4(x)=f(x_0)+f'(x_0)(x-x_0)+\frac{f''(x_0)(x-x_0)^2}{2}+\frac{f'''(x_0)(x-x_0)^3}{6}+\frac{f''''(c)(x-x_0)^4}{24}-(f(x_0)+f'(x_0)(x-x_0)+\frac{f''(x_0)(x-x_0)^2}{2}+\frac{f'''(x_0)(x-x_0)^3}{6})$$
+			$$R_4(x)=\frac{f''''(c)(x-x_0)^4}{24}$$
+			<p>That's the Lagrange Error for a fourth degree Taylor polynomial! Notice how it follows the forumla of the Taylor series, therefore:</p>
+			$$\left|R_n(x)\right|\le\frac{M}{(n+1)!}(x-x_0)^{n+1}$$
+			<p>Where \(M\) is equal to the most extreme value of\(f^{(n+1)}(x)\). Keep in mind, we use a \(\le\) sign because the error could be less than or equal to this value- the value given is the most extreme value.</p>
 			<a id="2" class="anchor"></a>
-			<h4>Step 2</h4>
-			<p>We can take the derivative of our above function, \(R_n(x)=f(x)-T_n(x)\), as many times as we want because all of it's derivatives are differentiable. So:</p>
-			$$R_n(x)=f(x)-T_n(x) \Rightarrow R_n'(x)=f'(x)-T_n'(x) \Rightarrow R_n^{(n+1)}(x)=f^{(n+1)}(x)+T_n^{(n+1)}(x)$$
+			<h4>Method 2</h4>
+			<p>Here's another way of deriving the formula. We can take the derivative of our function, \(R_n(x)=f(x)-T_n(x)\), as many times as we want because all of it's derivatives are differentiable. So:</p>
+			$$R_n(x)=f(x)-T_n(x)$$
+			$$R_n'(x)=f'(x)-T_n'(x)$$
+			$$R_n^{(n+1)}(x)=f^{(n+1)}(x)-T_n^{(n+1)}(x)$$
 			<p>We can eliminate \(T_n^{(n+1)}(x)\) here. Why? The (\(n+1\))th derivative of a \(n\)th degree Taylor series is \(0\). This works because in the last term of the Taylor series, \(x\) is to the \(n\)th power. Because you are taking the derivative \(n+1\) times, this value, and all the previous values, are equal to \(0\). So now:</p>
 			$$R_n^{(n+1)}(x)=f^{(n+1)}(x)$$
-			<a id="3" class="anchor"></a>
-			<h4>Step 3</h4>
 			<p>So let's say \(\left|f^{(n+1)}(x)\right|\le M\). This goes back to our most extreme idea- we're trying to find the most extreme value of \(f^{(n+1)}(x)\) so we have the most leeway for our remainder. \(M\) just represents that most extreme value. We also know \(R_n^{(n+1)}(x)=f^{(n+1)}(x)\). Thus:</p>
 			$$\left|R_n^{(n+1)}(x)\right|\le M$$
 			$$-M \le R_n^{(n+1)}(x) \le M$$
@@ -84,24 +106,18 @@
 			$$-Mt|_{x_0}^x \le R_n^{(n)}(x)-R_n^{(n)}(x_0) \le Mt|_{x_0}^x$$
 			<p>Here, we know that \(R_n^{(n)}(x_0)\) is \(0\). Why? Because at the center of the Taylor series, \(f^{(k)}(x_0)=T_n^{(k)}(x_0)\). This is because of the way the Taylor polynomial is constucted.Therefore:</p>
 			$$-M(x-x_0) \le R_n^{(n)}(x) \le M(x-x_0)$$
-			<a id="4" class="anchor"></a>
-			<h4>Step 4</h4>
 			<p>Now, we integrate again.</p>
 			$$\int_{x_0}^x-M(t-x_0)dt \le \int_{x_0}^xR_n^{(n)}(t)dt \le \int_{x_0}^xM(t-x_0)dt$$
 			$$-M\left(\frac{(t-x_0)^2}{2}\Bigg|_{x_0}^x\right) \le R_n^{(n-1)}(x)-R_n^{(n-1)}(x_0) \le M\left(\frac{(t-x_0)^2}{2}\Bigg|_{x_0}^x\right)$$
 			<p>Again, we can eliminate \(R_n^{(n-1)}(x_0)\).</p>
 			$$-M\left(\frac{(x-x_0)^2}{2}-\frac{(x_0-x_0)^2}{2}\right) \le R_n^{(n-1)}(x) \le M\left(\frac{(x-x_0)^2}{2}-\frac{(x_0-x_0)^2}{2}\right)$$
 			$$-M\left(\frac{(x-x_0)^2}{2}\right) \le R_n^{(n-1)}(x) \le M\left(\frac{(x-x_0)^2}{2}\right)$$
-			<a id="5" class="anchor"></a>
-			<h4>Step 5</h4>
 			<p>Let's integrate one more time:</p>
 			$$\int_{x_0}^x-M\frac{(t-x_0)^2}{2}dt \le \int_{x_0}^xR_n^{(n-1)}(t)dt \le \int_{x_0}^xM\frac{(t-x_0)^2}{2}dt$$
 			$$-M\left(\frac{(t-x_0)^3}{3!}\Bigg|_{x_0}^x\right) \le R_n^{(n-2)}(x)-R_n^{(n-2)}(x_0) \le M\left(\frac{(t-x_0)^3}{3!}\Bigg|_{x_0}^x\right)$$
 			<p>Using our previous simplifications, we get:</p>
 			$$-M\left(\frac{(x-x_0)^3}{3!}\right) \le R_n^{(n-2)}(x) \le M\left(\frac{(x-x_0)^3}{3!}\right)$$
 			<p>Beginning to notice a pattern? I hope so.</p>
-			<a id="6" class="anchor"></a>
-			<h4>Step 6</h4>
 			<p>Here's the pattern we have so far:</p>
 			$$-M\frac{(x-x_0)^0}{0!} \le R_n^{(n+1)}(x) \le M\frac{(x-x_0)^0}{0!}$$
 			$$-M\frac{(x-x_0)^1}{1!} \le R_n^{(n)}(x) \le M\frac{(x-x_0)^1}{1!}$$
