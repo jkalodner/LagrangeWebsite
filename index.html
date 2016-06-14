@@ -79,9 +79,9 @@
 			<p>We've integrated all of the definite numbers-but wait. We still have something left in the integrals! This is the remainder. We can use the Mean Value Theorum to rewrite this:</p>
 			$$\frac{1}{t_2-x_0}\int_{x_0}^{t_2}f''''(t_3)dt_3=f''''_{avg}$$
 			<p class="text-center">so:</p>
-			$$f''''(avg)(t_2-x_0)=\int_{x_0}^{t_2}f''''(t_3)dt_3$$
-			<p>Great, right? Except... we don't know that the \(x\) value is that will produce the average height. We have absolutely no idea! Therefore, what we do is we use the <strong>worst value</strong> for \(x\) (or \(t_3\) in this case). We know that this way, there's no way that the error can be larger than our guess:</p>
-			$$f''''(avg)(t_2-x_0)\le \left|f''''(worst)\right|(t_2-x_0)$$
+			$$f''''_{avg}(t_2-x_0)=\int_{x_0}^{t_2}f''''(t_3)dt_3$$
+			<p>Great, right? Except... we don't know that the \(x\) value is that will produce the average height. We have absolutely no idea! But, we do know that the x value is somewhere in this interval. Therefore, what we do is we use the <strong>worst value</strong> for \(x\) (or \(t_3\) in this case). We know that this way, there's no way that the error can be larger than our guess:</p>
+			$$f''''_{avg}(t_2-x_0)\le \left|f''''(worst)\right|(t_2-x_0)$$
 			<p>So, if we keep integrating this in out \(f(x)\) function above, and \(c\) is equal to the worst \(x\) value, then we get:</p>
 			$$f(x)=f(x_0)+f'(x_0)(x-x_0)+\frac{f''(x_0)(x-x_0)^2}{2}+\frac{f'''(x_0)(x-x_0)^3}{6}+\frac{f''''(c)(x-x_0)^4}{24}$$
 			<p>\(\frac{f''''(c)(x-x_0)^4}{4}\) should be our Lagrange Error, right? Just to be safe, let's double check using our formula \(R_n(x)=f(x)-T_n(x)\). Seeing as we have 4 non-remainder terms, our \(n\) will equal 4.</p>
